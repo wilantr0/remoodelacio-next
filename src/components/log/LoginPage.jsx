@@ -2,6 +2,9 @@ import Login from './Login';
 import Register from './Register';
 import { useState } from 'react';
 import estilos from './style';
+import { Montserrat } from 'next/font/google';
+
+export const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function LogIn () {
   const [card, setCard] = useState('');

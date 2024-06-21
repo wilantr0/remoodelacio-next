@@ -1,3 +1,7 @@
+import { Montserrat } from 'next/font/google';
+
+export const montserrat = Montserrat({ subsets: ['latin'] });
+
 export default function CardSlider () {
   return (
     <div className='overlay-container'>

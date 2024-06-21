@@ -7,7 +7,7 @@ export default async function Queries (req: NextApiRequest, res: NextApiResponse
   switch (method) {
     case "GET":
       try {
-        const response = await conn.query('SELECT * FROM tasks')
+        const response = await conn.query('SELECT * FROM classes')
         res.status(200).json(response.rows);
       } catch (error) {
         res.json(error);
@@ -20,7 +20,7 @@ export default async function Queries (req: NextApiRequest, res: NextApiResponse
       const id = uuid()
       const createdAt = new Date()
       const updatedAt = createdAt
-      const query = 'INSERT INTO tasks(id, name, description, classId, teacher, createdAt, updatedAt) VALUES ($1, $2, $3, $4, $5, $6, $7);'
+      const query = 'INSERT INTO classes(id, name, description, classId, teacher, createdAt, updatedAt) VALUES ($1, $2, $3, $4, $5, $6, $7);'
       const values = [id, name, description, classId, teacher, createdAt, updatedAt]
       conn.query(query, values)
       res.status(200).json("CREATING task");

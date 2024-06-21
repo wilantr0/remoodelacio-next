@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { estilos } from './style';
+import { Montserrat } from 'next/font/google';
+
+export const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Login () {
   const {
