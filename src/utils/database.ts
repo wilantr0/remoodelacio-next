@@ -1,4 +1,5 @@
 import { Pool } from 'pg'
+import 'dotenv/config'
 
 
 let conn:any
@@ -7,12 +8,11 @@ let conn:any
 
 if(!conn){
 conn = new Pool({
-  user: 'guille',
-  password: '1234',
-  host: 'localhost',
-  port: 5432,
-  database: 'remoodelacio'
+  connectionString: process.env.SERVER_URI
+  
 });
 }
+
+
 
 export { conn }

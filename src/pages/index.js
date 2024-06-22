@@ -1,13 +1,23 @@
-import MainLayout from '../layouts/MainLayout'
+import { useState } from 'react';
+import LoggedPage from './Logged';
+import NotLoggedPage from './notLoged';
 
 export const metadata = {
   title: 'About'
-}
+};
 
 export default function Planes () {
+  const [logged, setLogged] = useState(false);
   return (
-    <MainLayout id='home' title='Home'>
-      <h1 class=''>Hola Astro</h1>
-    </MainLayout>
-  )
+    <>
+      <button
+        onClick={() => {
+          setLogged(!logged);
+        }}
+      >
+        Iniciar sesion
+      </button>
+      {logged ? <LoggedPage /> : <NotLoggedPage />}
+    </>
+  );
 }

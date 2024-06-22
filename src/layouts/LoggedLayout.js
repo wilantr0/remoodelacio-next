@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import Head from 'next/head.js';
 
-export default function ClassLayout ({ title, children }) {
+export default function LoggedLayout ({ title, children }) {
   title = title ? `${title} | Remoodelacio` : 'Remoodelacio';
   return (
     <>
