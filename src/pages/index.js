@@ -15,7 +15,7 @@ export default function Planes () {
           setLogged(!logged);
         }}
       >
-        Iniciar sesion
+        {logged ? 'LogOut' : 'Log In'}
       </button>
       {logged ? <LoggedPage /> : <NotLoggedPage />}
     </>

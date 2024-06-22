@@ -2,7 +2,7 @@ import { Pool } from 'pg'
 import 'dotenv/config'
 
 
-let conn:any
+let conn:
 
 
 
