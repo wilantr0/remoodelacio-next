@@ -67,6 +67,13 @@ export default function NavBar (id) {
                 Sobre Nosotros
               </a>
             </li>
+            <li>
+        <div class={`nav-link px-2 ${id == "calendar" ? "link-secondary" : ""}`}>
+          <a href="/calendar" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="/calendar.png" alt="insti logo" width={30} height={30}/></a
+          >
+        </div>
+      </li>
           </ul>
 
           <div className='col-md-3 text-end'>
