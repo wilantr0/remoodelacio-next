@@ -1,17 +1,5 @@
-/*const categories = [
-  { name: 'Mates 1', teacher: 'Sara Santamaria', classCode: 'ab43e7' },
-  { name: 'Fisica 2', teacher: 'Sara Santamaria', classCode: 'ab43e7' },
-  { name: 'Castellano 1', teacher: 'Sara Santamaria', classCode: 'ab43e7' }
-];*/
+import BreadCrumb from '../../components/BreadCrumb'
 
-export default function Clanedar () {
-  return (
-    <aside>
-      <form action='/api/tasks' method='post'>
-        <input type='text' name='name' id='name' />
-        <input type='password' name='password' id='password' />
-        <button>Enviar</button>
-      </form>
-    </aside>
-  );
+export default function Prueba () {
+  return <BreadCrumb classItem='8133ed3e-f376-47a9-aeb2-8dce6026cb06' task={3} />
 }
