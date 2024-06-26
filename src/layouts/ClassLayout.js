@@ -10,12 +10,12 @@ export default function ClassLayout ({ title, children }) {
       </Head>
       <header class='bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between'>
         <div class='flex items-center gap-4'>
-          <a class='text-xl font-bold' href='#'>
+          <a class='text-xl font-bold text-black' href='#'>
             Classroom
           </a>
           <nav class='hidden md:flex items-center gap-4'>
             <a
-              class='text-sm font-medium hover:underline underline-offset-4'
+              class='text-sm font-medium hover:underline underline-offset-4 text-black'
               href='#'
             >
               All Classes
@@ -34,9 +34,9 @@ export default function ClassLayout ({ title, children }) {
               viewBox='0 0 24 24'
               fill='none'
               stroke='currentColor'
-              stroke-width='2'
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               class='h-5 w-5'
             >
               <path d='M5 12h14'></path>

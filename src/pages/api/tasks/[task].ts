@@ -7,8 +7,7 @@ export default async function Queries (req: NextApiRequest, res: NextApiResponse
   console.log(query)
   switch (method) {
     case "GET":
-     
-      
+      res.json(query)
       break;
     case "POST":
       

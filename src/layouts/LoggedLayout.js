@@ -8,7 +8,7 @@ export default function LoggedLayout ({ title, children }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <header class='bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between'>
+      <header class='text-primary-foreground py-4 px-6 flex items-center justify-between border-b border-solid border-black'>
         <div class='flex items-center gap-4'>
           <a class='text-xl font-bold' href='#'>
             Classroom
