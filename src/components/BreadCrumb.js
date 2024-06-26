@@ -33,7 +33,7 @@ export default function BreadCrumb ({ classItem, task }) {
         <li class='inline-flex items-center'>
           <a
             href=''
-            class='inline-flex text-lg items-center font-medium text-white decoration-transparent hover:text-black dark:text-gray-400 dark:hover:text-white'
+            class='inline-flex text-lg items-center font-medium text-black decoration-transparent hover:text-black dark:text-gray-400 dark:hover:text-white'
           >
             <svg
               class='w-3 h-3 me-2.5'
@@ -66,7 +66,7 @@ export default function BreadCrumb ({ classItem, task }) {
             </svg>
             <a
               href={'/c/' + teacherData.id}
-              class='ms-1 text-sm font-medium text-white decoration-transparent hover:text-black md:ms-2 dark:text-gray-400 dark:hover:text-white'
+              class='ms-1 text-sm font-medium text-black decoration-transparent hover:text-black md:ms-2 dark:text-gray-400 dark:hover:text-white'
             >{teacherData.name}
             </a>
           </div>
