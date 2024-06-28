@@ -10,7 +10,6 @@ export default async function Queries (req: NextApiRequest, res: NextApiResponse
   switch (method) {
     case "GET":
       try {
-        console.log(uid.rnd())
         const response = await conn.query('SELECT * FROM clases')
         res.status(200).json(response.rows);
       } catch (error) {

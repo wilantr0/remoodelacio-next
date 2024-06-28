@@ -1,14 +1,13 @@
 import { Pool } from 'pg'
-import 'dotenv/config'
 
 
 let conn:any
 
-
+console.log(process.env.URI_SERVER)
 
 if(!conn){
 conn = new Pool({
-  connectionString: process.env.SERVER_URI
+  connectionString: process.env.URI_SERVER
   
 });
 }
