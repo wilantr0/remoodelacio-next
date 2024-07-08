@@ -36,7 +36,7 @@ const ClassCard = ({ classItem }) => {
     <a
       key={classItem.id}
       href={`/c/${classItem.id}`}
-      class='rounded-lg border bg-card text-card-foreground shadow-lg'
+      class='rounded-lg border bg-card text-black decoration-transparent text-card-foreground shadow-lg'
       data-v0-t='card'
     >
       <div class='p-6'>
