@@ -73,5 +73,5 @@ export default function NavBar (id) {
         </div>
       </header>
     </div>
-  );
+  )
 }

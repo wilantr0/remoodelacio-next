@@ -24,7 +24,7 @@
       "@api#/*": ["src/api#/*"]
     }
   },
-  "include": [
+  "include": [ 
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
