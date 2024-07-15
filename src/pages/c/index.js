@@ -1,7 +1,8 @@
 import ClassCard from '../../components/classCard'
 import LoggedLayout from '../../layouts/LoggedLayout'
-export default function Classes ({ clases }) {
+export default function Classes ({ clases, tareas }) {
   console.log(clases)
+  console.log(tareas)
 
   return (
     <div className='flex flex-col h-screen'>
@@ -28,12 +29,20 @@ async function fetchAllClasses () {
   return data
 }
 
+async function fetchAllTasks () {
+  const res = await fetch('http://localhost:3000/api/tasks')
+  const data = await res.json()
+  return data
+}
+
 export async function getServerSideProps () {
   const clases = await fetchAllClasses()
+  const tareas = await fetchAllTasks()
 
   return {
     props: {
-      clases
+      clases,
+      tareas
     }
   }
 }
