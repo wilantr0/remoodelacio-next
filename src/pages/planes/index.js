@@ -6,7 +6,6 @@ export default function Planes () {
     <Layout title='Planes | Remoodelacio' id='planes'>
       <>
         <h1 className='text-center p-4 mb-2'>Planes</h1>
-        <a href='aa'>a</a>
 
         <div className='flex flex-row justify-center gap-3'>
           <PlansCard
