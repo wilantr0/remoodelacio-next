@@ -32,7 +32,7 @@ export default function LoggedLayout ({ title, children }) {
               <li>
                 <a
                   id='home'
-                  href='/'
+                  href='/c'
                   className='nav-link px-2'
                 >
                   Clases
