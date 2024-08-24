@@ -1,77 +1,24 @@
-export default function NavBar (id) {
+import { Button } from '@/components/ui/button'
+
+export default function NavBar () {
   return (
-    <div className='container'>
-      <header className='d-flex flex-wrap flex-row align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom'>
-        <div className='col-md-3 mb-2 mb-md-0 -mr-10'>
-          <a
-            href='/'
-            className='d-inline-flex link-body-emphasis text-decoration-none'
-          >
-            <img src='/logo.jpg' alt='insti logo' width={68} height={60} />
-          </a>
+
+    <header className='px-4 lg:px-6 h-20 flex items-center border-b'>
+      <div className='container mx-auto flex justify-between items-center'>
+        <a className='flex items-center justify-center' href='#'>
+          <img src='/logoN.png' alt='Logo' width={150} height={40} className='h-10 w-auto' />
+        </a>
+        <nav className='hidden md:flex space-x-8'>
+          <a className='text-sm font-medium hover:text-blue-600 decoration-transparent' href='/'>Home</a>
+          <a className='text-sm font-medium hover:text-blue-600 decoration-transparent' href='/servicios'>Servicios</a>
+          <a className='text-sm font-medium hover:text-blue-600 decoration-transparent' href='/planes'>Planes</a>
+          <a className='text-sm font-medium hover:text-blue-600 decoration-transparent' href='/about'>Sobre Nosotros</a>
+        </nav>
+        <div className='flex items-center space-x-4'>
+          <Button variant='ghost'>Login</Button>
+          <Button className='bg-blue-600 hover:bg-blue-700 text-white'>Sign-up</Button>
         </div>
-
-        <ul className='nav col-12 col-md-auto mb-2 justify-content-center mb-md-0'>
-          <li>
-            <a
-              id='home'
-              href='/'
-              className={`nav-link px-2 ${
-                id === 'home' ? 'link-secondary' : ''
-              }`}
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              id='servicios'
-              href='/servicios'
-              className={`nav-link px-2 ${
-                id === 'servicios' ? 'link-secondary' : ''
-              }`}
-            >
-              Servicios
-            </a>
-          </li>
-          <li>
-            <a
-              id='planes'
-              href='/planes'
-              className={`nav-link px-2 ${
-                id === 'planes' ? 'link-secondary' : ''
-              }`}
-            >
-              Planes
-            </a>
-          </li>
-          <li>
-            <a
-              id='about'
-              href='/about'
-              className={`nav-link px-2 ${
-                id === 'about' ? 'link-secondary' : ''
-              }`}
-            >
-              Sobre Nosotros
-            </a>
-          </li>
-        </ul>
-
-        <div className='col-md-3 text-end'>
-          <a href='/login'>
-            <button type='button' className='btn btn-outline-primary me-2'>
-              Login
-            </button>
-          </a>
-
-          <a className='decoration-transparent' href='/login'>
-            <button type='button' className='btn btn-primary'>
-              Sign-up
-            </button>
-          </a>
-        </div>
-      </header>
-    </div>
+      </div>
+    </header>
   )
 }

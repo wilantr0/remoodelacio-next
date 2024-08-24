@@ -16,7 +16,7 @@ export default function LoggedLayout ({ title, children }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <header className=' text-primary-foreground py-4 px-4 flex items-center justify-between text-white'>
+      <header className=' d-flex flex-wrap flex-row align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom'>
         <div className='container'>
           <header className='d-flex flex-wrap flex-row align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom'>
             <div className='col-md-3 mb-2 mb-md-0 -mr-10'>
@@ -31,7 +31,7 @@ export default function LoggedLayout ({ title, children }) {
             <ul className='nav col-12 col-md-auto mb-2 justify-content-center mb-md-0'>
               <li>
                 <a
-                  id='home'
+                  id='clases'
                   href='/c'
                   className='nav-link px-2'
                 >
@@ -40,8 +40,8 @@ export default function LoggedLayout ({ title, children }) {
               </li>
               <li>
                 <a
-                  id='servicios'
-                  href='/servicios'
+                  id='agenda'
+                  href='/calendar'
                   className='nav-link px-2'
                 >
                   Agenda
@@ -49,8 +49,8 @@ export default function LoggedLayout ({ title, children }) {
               </li>
               <li>
                 <a
-                  id='planes'
-                  href='/planes'
+                  id='notas'
+                  href='/marks'
                   className='nav-link px-2'
                 >
                   Notas
@@ -65,6 +65,7 @@ export default function LoggedLayout ({ title, children }) {
                   Blog
                 </a>
               </li>
+
             </ul>
 
             <div className='col-md-3 w-8 h-8 text-end'>

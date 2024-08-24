@@ -1,34 +1,46 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { conn } from 'src/utils/database';
-import ShortUniqueId from 'short-unique-id'
 
-export default async function Queries (req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { method, body } = req;
 
-  const uid = new ShortUniqueId({ length: 10})
-
-  const {method, body} = req
   switch (method) {
     case "GET":
       try {
-        const response = await conn.query('SELECT * FROM clases')
+        const response = await conn.query('SELECT * FROM classrooms');
         res.status(200).json(response.rows);
       } catch (error) {
-        res.json(error);
+        res.status(500).json({ error: 'Error fetching classrooms' });
       }
-      
       break;
+
     case "POST":
-      console.log(body)
-      const { name, teacher } = body
-      const id = uid.rnd()
-      const classCode = uid.rnd()
-      const query = 'INSERT INTO clases(id, name, teacher, classCode) VALUES ($1, $2, $3, $4);'
-      const values = [id, name, teacher, classCode]
-      conn.query(query, values)
-      res.status(200).json("CREATING class");
+      try {
+        const { name, description, createdBy } = body;
+
+        // Validación básica
+        if (!name || !createdBy) {
+          return res.status(400).json({ error: 'Name and createdBy are required' });
+        }
+
+        const query = `
+          INSERT INTO classrooms (name, description, created_by)
+          VALUES ($1, $2, $3)
+          RETURNING *;
+        `;
+        const values = [name, description, createdBy];
+        const response = await conn.query(query, values);
+
+        res.status(201).json(response.rows[0]);
+      } catch (error) {
+        console.error('Error creating class:', error);
+        res.status(500).json({ error: 'An error occurred while creating the class' });
+      }
       break;
+
     default:
-      res.json("ERROR");
+      res.setHeader('Allow', ['GET', 'POST']);
+      res.status(405).end(`Method ${method} Not Allowed`);
       break;
   }
-};
+}

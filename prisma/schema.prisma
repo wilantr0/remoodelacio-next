@@ -18,3 +18,11 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Classroom {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  createdBy   Int
+  createdAt   DateTime @default(now())
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import LoggedPage from './Logged'
-import NotLoggedPage from './notLoged'
+import NotLoggedPage from './notLogged'
 
 export const metadata = {
   title: 'About'
@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Planes () {
   //! ! CUIDADO, CAMBIAR A FALSE
-  const [logged, setLogged] = useState(true)
+  const [logged, setLogged] = useState(false)
   return (
     <>
       <button

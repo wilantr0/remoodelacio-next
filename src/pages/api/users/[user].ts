@@ -9,11 +9,11 @@ export default async function Queries (req: NextApiRequest, res: NextApiResponse
     case "GET":
       try {
         const queryText = {
-          text: 'SELECT name FROM users WHERE id = $1',
+          text: 'SELECT * FROM users WHERE user_id = $1',
           values: [query.user]
         }
         const response = await conn.query(queryText)
-        res.status(200).json(response.rows);
+        res.status(200).json(response.rows[0]);
         return response.rows
       } catch (error) {
         res.json(error);
