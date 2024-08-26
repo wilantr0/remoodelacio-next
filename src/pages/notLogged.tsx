@@ -1,5 +1,4 @@
 import ImageComparison from '@components/CompareImages'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import NavBar from '@components/NavBar'
 import { Users, Calendar, BarChart3, Building2 } from 'lucide-react'
@@ -24,8 +23,8 @@ export default function NotLoggedPage () {
                   </p>
                 </div>
                 <div className='flex flex-col gap-2 min-[400px]:flex-row'>
-                  <Button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar prueba gratuita</Button>
-                  <Button variant='outline' className='bg-blue-600 text-white border-white hover:bg-white/10'>Ver demostración</Button>
+                  <button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar prueba gratuita</button>
+                  <button className='bg-blue-600 text-white border-white hover:bg-white/10'>Ver demostración</button>
                 </div>
               </div>
 
@@ -119,8 +118,8 @@ export default function NotLoggedPage () {
                 </p>
               </div>
               <div className='space-x-4'>
-                <Button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar ahora</Button>
-                <Button variant='outline' className='text-white border-white bg-blue-600 hover:bg-white/10'>Contactar ventas</Button>
+                <button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar ahora</button>
+                <button className='text-white border-white bg-blue-600 hover:bg-white/10'>Contactar ventas</button>
               </div>
             </div>
           </div>
