@@ -1,14 +1,17 @@
-import Login from './Login';
-import Register from './Register';
-import { useState } from 'react';
-import estilos from './style';
-import { Montserrat } from 'next/font/google';
+import Login from './Login'
+import Register from './Register'
+import { useEffect, useState } from 'react'
+import estilos from './style'
+import { Montserrat } from 'next/font/google'
 
-export const montserrat = Montserrat({ subsets: ['latin'] });
+export const montserrat = Montserrat({ subsets: ['latin'] })
 
-export default function LogIn () {
-  const [card, setCard] = useState('');
-  console.log(estilos);
+export default function LogIn ({ page }) {
+  const [card, setCard] = useState('')
+  useEffect(() => setCard(page), [page])
+
+  console.log(card)
+
   return (
     <>
       <style>{estilos}</style>
@@ -46,5 +49,5 @@ export default function LogIn () {
         </div>
       </div>
     </>
-  );
+  )
 }

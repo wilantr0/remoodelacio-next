@@ -1,33 +1,33 @@
-import { useState } from 'react';
-import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa';
-import { useForm } from 'react-hook-form';
-import { estilos } from './style';
-import { Montserrat } from 'next/font/google';
+import { useState } from 'react'
+import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
+import { useForm } from 'react-hook-form'
+import { estilos } from './style'
+import { Montserrat } from 'next/font/google'
 
-export const montserrat = Montserrat({ subsets: ['latin'] });
+export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Login () {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm()
 
   const onSubmit = data => {
-    console.log(data);
-  };
+    console.log(data)
+  }
 
-  const [showPass, setShowPass] = useState(false);
-  const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false)
+  const [password, setPassword] = useState('')
 
   const handlePasswordChange = event => {
-    setPassword(event.target.value);
-  };
+    setPassword(event.target.value)
+  }
 
   const togglePasswordVisibility = e => {
-    e.preventDefault();
-    setShowPass(!showPass);
-  };
+    e.preventDefault()
+    setShowPass(!showPass)
+  }
 
   return (
     <section className='form-container sign-in-container'>
@@ -87,5 +87,5 @@ export default function Login () {
         <input type='submit' value='Log in' />
       </form>
     </section>
-  );
+  )
 }
