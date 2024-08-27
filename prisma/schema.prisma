@@ -1,32 +1,50 @@
+// prisma/schema.prisma
+
+// Define the datasource
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
+// Define the generator
 generator client {
   provider = "prisma-client-js"
 }
 
+// Define enums
 enum Role {
   user
   teacher
   super
 }
 
+// User model
 model User {
-  id            String          @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String          @unique
-  password      String?
+  email         String    @unique
+  password      String
   emailVerified DateTime?
-  role          Role            @default(user)
+  role          Role      @default(user)
   image         String?
   accounts      Account[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Relationships
+  createdClassrooms Classroom[]         @relation("ClassroomCreatedBy")
+  classroomUsers    ClassroomUser[]
+  assignments       Submission[]        @relation("Assignments")
+  announcements     Announcement[]
+  comments          Comment[]
+  submissions       Submission[]        @relation("StudentSubmissions")
+  grades            Grade[]
+  notifications     Notification[]
+  ClassroomMaterial ClassroomMaterial[]
+  Submission        Submission[]
 }
- 
+
+// Account model
 model Account {
   userId            String
   type              String
@@ -39,19 +57,145 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
- 
+
+// VerificationToken model
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
+}
+
+// Classroom model
+model Classroom {
+  classroom_id  Int                 @id @default(autoincrement())
+  name          String
+  description   String?
+  created_by    User                @relation("ClassroomCreatedBy", fields: [created_by_id], references: [id])
+  created_by_id String
+  created_at    DateTime            @default(now())
+  users         ClassroomUser[]
+  assignments   Assignment[]
+  announcements Announcement[]
+  materials     ClassroomMaterial[]
+}
+
+// ClassroomUser model
+model ClassroomUser {
+  classroom_id Int
+  user_id      String
+  role         String
+  joined_at    DateTime @default(now())
+
+  classroom Classroom @relation(fields: [classroom_id], references: [classroom_id])
+  user      User      @relation(fields: [user_id], references: [id])
+
+  @@id([classroom_id, user_id])
+}
+
+// Assignment model
+model Assignment {
+  assignment_id Int       @id @default(autoincrement())
+  classroom_id  Int
+  title         String
+  description   String?
+  due_date      DateTime?
+  created_at    DateTime  @default(now())
+
+  classroom   Classroom    @relation(fields: [classroom_id], references: [classroom_id])
+  submissions Submission[] @relation("AssignmentSubmissions")
+  comments    Comment[]
+  Grade       Grade[]
+}
+
+// Submission model
+model Submission {
+  submission_id Int      @id @default(autoincrement())
+  assignment_id Int
+  student_id    String
+  submitted_at  DateTime @default(now())
+  file_path     String?
+  grade         Float?
+  feedback      String?
+
+  assignment Assignment @relation("AssignmentSubmissions", fields: [assignment_id], references: [assignment_id])
+  student    User       @relation("StudentSubmissions", fields: [student_id], references: [id])
+  userId     String?
+
+  User User? @relation(fields: [userId], references: [id])
+  User User? @relation(fields: [userId], references: [id])
+}
+
+// Announcement model
+model Announcement {
+  announcement_id Int      @id @default(autoincrement())
+  classroom_id    Int
+  created_by      User     @relation(fields: [created_by_id], references: [id])
+  created_by_id   String
+  title           String
+  content         String
+  created_at      DateTime @default(now())
+
+  classroom Classroom @relation(fields: [classroom_id], references: [classroom_id])
+  comments  Comment[]
+}
+
+// Comment model
+model Comment {
+  comment_id      Int      @id @default(autoincrement())
+  user_id         String
+  assignment_id   Int?
+  announcement_id Int?
+  content         String
+  created_at      DateTime @default(now())
+
+  user         User          @relation(fields: [user_id], references: [id])
+  assignment   Assignment?   @relation(fields: [assignment_id], references: [assignment_id])
+  announcement Announcement? @relation(fields: [announcement_id], references: [announcement_id])
+}
+
+// ClassroomMaterial model
+model ClassroomMaterial {
+  material_id    Int      @id @default(autoincrement())
+  classroom_id   Int
+  uploaded_by    User     @relation(fields: [uploaded_by_id], references: [id])
+  uploaded_by_id String
+  title          String
+  description    String?
+  file_path      String
+  uploaded_at    DateTime @default(now())
+
+  classroom Classroom @relation(fields: [classroom_id], references: [classroom_id])
+}
+
+// Grade model
+model Grade {
+  grade_id      Int      @id @default(autoincrement())
+  assignment_id Int
+  student_id    String
+  grade         Float
+  graded_at     DateTime @default(now())
+
+  assignment Assignment @relation(fields: [assignment_id], references: [assignment_id])
+  student    User       @relation(fields: [student_id], references: [id])
+}
+
+// Notification model
+model Notification {
+  notification_id Int      @id @default(autoincrement())
+  user_id         String
+  message         String
+  is_read         Boolean  @default(false)
+  created_at      DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
 }

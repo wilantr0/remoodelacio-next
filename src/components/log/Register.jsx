@@ -1,32 +1,40 @@
 import { useState } from 'react'
 import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
-import { useForm } from 'react-hook-form'
 import { estilos } from './style'
 import { Montserrat } from 'next/font/google'
 
 export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Register () {
-  const { register, handleSubmit } = useForm()
-
-  const onSubmit = data => {
-    console.log(data)
-  }
   const [showPass, setShowPass] = useState(false)
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const handlePasswordChange = event => {
-    setPassword(event.target.value)
-  }
+  const [name, setName] = useState('')
+  const [role, setRole] = useState('')
 
   const togglePasswordVisibility = e => {
     e.preventDefault()
     setShowPass(!showPass)
   }
+
+  const handleSignIn = async (event) => {
+    event.preventDefault()
+    const res = await fetch('/api/auth/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name, role })
+    })
+    const data = await res.json()
+    if (res.ok) {
+      console.log(data)
+    } else {
+      // Maneja errores
+    }
+  }
   return (
     <section className='form-container sign-up-container'>
       <style>{estilos}</style>
-      <form action='' className='' onSubmit={handleSubmit(onSubmit)}>
+      <form action='' className='' onSubmit={handleSignIn}>
         <h1>Crear cuenta</h1>
         <div className='social-container'>
           <a className='social-login' href=''>
@@ -38,28 +46,27 @@ export default function Register () {
         </div>
         <span>o utiliza tu mail</span>
         <input
-          {...register('name')}
           className='input'
           type='text'
           placeholder='nombre'
+          onChange={(e) => setName(e.target.value)}
           required
         />
         <input
-          {...register('mail')}
           className='input'
           type='email'
           placeholder='e-mail'
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <div className='password-container' style={{ width: '100%' }}>
           <input
-            {...register('password')}
             className='input'
             type={showPass ? 'text' : 'password'}
             placeholder='contraseña'
             value={password}
             id='password'
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             required
             style={{ width: '100%' }}
           />
@@ -71,7 +78,7 @@ export default function Register () {
             </button>
           </span>
         </div>
-        <select {...register('role')} className='input' name='role' id='role'>
+        <select onChange={(e) => setRole(e.target.value)} className='input' name='role' id='role'>
           <option value='teacher'>Profesor/a</option>
           <option value='alumn'>Alumno/a</option>
           <option value='admin'>Gestor/a</option>
