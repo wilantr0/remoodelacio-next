@@ -1,10 +1,6 @@
 "use server";
 
-<<<<<<< HEAD
-import { loginSchema } from "@/lib/zod";
-=======
 import { loginSchema } from "lib/zod";
->>>>>>> 95dc9aff88e82dbe2155b69cb65b9eb44bc935e1
 import { signIn } from "auth";
 import { z } from "zod";
 import { AuthError } from "next-auth";
@@ -30,64 +26,64 @@ export const loginAction = async(
 
 export const registerAction = async (
     values: z.infer<typeof registerSchema>
-  ) => {
+) => {
     try {
-      const { data, success } = registerSchema.safeParse(values);
-      if (!success) {
+    const { data, success } = registerSchema.safeParse(values);
+    if (!success) {
         return {
-          error: "Invalid data",
+        error: "Invalid data",
         };
-      }
-  
+    }
+
       // verificar si el usuario ya existe
-      const user = await db.user.findUnique({
+    const user = await db.user.findUnique({
         where: {
-          email: data.email,
+        email: data.email,
         },
         include: {
           accounts: true, // Incluir las cuentas asociadas
         },
-      });
-  
-      if (user) {
+    });
+
+    if (user) {
         // Verificar si tiene cuentas OAuth vinculadas
         const oauthAccounts = user.accounts.filter(
-          (account) => account.type === "oauth"
+        (account) => account.type === "oauth"
         );
         if (oauthAccounts.length > 0) {
-          return {
+        return {
             error:
-              "To confirm your identity, sign in with the same account you used originally.",
-          };
+            "To confirm your identity, sign in with the same account you used originally.",
+        };
         }
         return {
-          error: "User already exists",
+        error: "User already exists",
         };
-      }
-  
+    }
+
       // hash de la contraseña
-      const passwordHash = await bcrypt.hash(data.password, 10);
-  
+    const passwordHash = await bcrypt.hash(data.password, 10);
+
       // crear el usuario
-      await db.user.create({
+    await db.user.create({
         data: {
-          email: data.email,
-          name: data.name,
-          password: passwordHash,
+        email: data.email,
+        name: data.name,
+        password: passwordHash,
         },
-      });
-  
-      await signIn("credentials", {
+    });
+
+    await signIn("credentials", {
         email: data.email,
         password: data.password,
         redirect: false,
-      });
-  
-      return { success: true };
+    });
+
+    return { success: true };
     } catch (error) {
-      if (error instanceof AuthError) {
+    if (error instanceof AuthError) {
         return { error: error.cause?.err?.message };
-      }
-      return { error: "error 500" };
     }
-  };
+    return { error: "error 500" };
+    }
+};
