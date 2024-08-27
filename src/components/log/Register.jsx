@@ -9,8 +9,8 @@ export const montserrat = Montserrat({ subsets: ['latin'] });
 export default function Register () {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = () => {
-    console.log('a');
+  const onSubmit = data => {
+    console.log(data);
   };
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState('');
