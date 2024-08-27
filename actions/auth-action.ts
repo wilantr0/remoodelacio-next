@@ -1,9 +1,10 @@
 "use server";
 
-import { loginSchema } from "@/lib/zod";
-import { signIn } from "@/auth";
+import { loginSchema } from "lib/zod";
+import { signIn } from "auth";
 import { z } from "zod";
 import { AuthError } from "next-auth";
+
 
 export const loginAction = async(
     values: z.infer<typeof loginSchema>
@@ -13,8 +14,8 @@ export const loginAction = async(
             email: values.email,
             password: values.password,
             redirect: false,
-          })
-      return { succes: true };    
+        })
+    return { succes: true };    
     } catch (error){
         if (error instanceof AuthError) {
             return {error: error.cause?.err?.message};

@@ -1,5 +1,5 @@
 import ImageComparison from '@components/CompareImages'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@components/ui/card'
 import NavBar from '@components/NavBar'
 import { Users, Calendar, BarChart3, Building2 } from 'lucide-react'
 

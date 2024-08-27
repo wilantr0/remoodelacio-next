@@ -1,12 +1,12 @@
 'use client'
-import { Button } from '@/components/ui/button'
+import { Button } from '@components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function NavBar () {
   return (
-    <header className='px-4 lg:px-6 h-20 flex items-center border-b'>
-      <div className='container mx-auto flex justify-between items-center'>
+    <header className='px-4 lg:px-6 h-20 flex items-center justify-between border-b'>
+      <div className='container mx-auto flex flex-row justify-between items-center'>
         <a className='flex items-center justify-center' href='#'>
           <Image src='/logoN.png' alt='Logo' width={150} height={40} className='h-10 w-auto' />
         </a>
