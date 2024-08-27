@@ -1,28 +1,28 @@
-import { useState } from 'react';
-import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa';
-import { useForm } from 'react-hook-form';
-import { estilos } from './style';
-import { Montserrat } from 'next/font/google';
+import { useState } from 'react'
+import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
+import { useForm } from 'react-hook-form'
+import { estilos } from './style'
+import { Montserrat } from 'next/font/google'
 
-export const montserrat = Montserrat({ subsets: ['latin'] });
+export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Register () {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm()
 
   const onSubmit = data => {
-    console.log(data);
-  };
-  const [showPass, setShowPass] = useState(false);
-  const [password, setPassword] = useState('');
+    console.log(data)
+  }
+  const [showPass, setShowPass] = useState(false)
+  const [password, setPassword] = useState('')
 
   const handlePasswordChange = event => {
-    setPassword(event.target.value);
-  };
+    setPassword(event.target.value)
+  }
 
   const togglePasswordVisibility = e => {
-    e.preventDefault();
-    setShowPass(!showPass);
-  };
+    e.preventDefault()
+    setShowPass(!showPass)
+  }
   return (
     <section className='form-container sign-up-container'>
       <style>{estilos}</style>
@@ -72,12 +72,12 @@ export default function Register () {
           </span>
         </div>
         <select {...register('role')} className='input' name='role' id='role'>
-          <option value='prof'>Profesor/a</option>
-          <option value='alum'>Alumno/a</option>
-          <option value='super'>Gestor/a</option>
+          <option value='teacher'>Profesor/a</option>
+          <option value='alumn'>Alumno/a</option>
+          <option value='admin'>Gestor/a</option>
         </select>
         <input type='submit' value='Sign up' />
       </form>
     </section>
-  );
+  )
 }
