@@ -10,3 +10,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   session: { strategy: 'jwt' }
 })
+// vale poso això perquè em deixi fer un comit
