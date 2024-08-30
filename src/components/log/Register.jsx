@@ -97,7 +97,7 @@ export default function Register () {
         <select onChange={(e) => setRole(e.target.value)} className='input' name='role' id='role'>
           <option value='teacher'>Profesor/a</option>
           <option value='alumn'>Alumno/a</option>
-          <option value='admin'>Gestor/a</option>
+          <option value='super'>Gestor/a</option>
         </select>
         <input type='submit' value='Sign up' />
       </form>
