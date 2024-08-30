@@ -92,12 +92,11 @@ model Classroom {
 // ClassroomUser model
 model ClassroomUser {
   classroom_id Int
-  userId      String
+  userId       String
   role         String
   joined_at    DateTime @default(now())
 
   User User? @relation(fields: [userId], references: [id])
-
 
   @@id([classroom_id, user_id])
 }
