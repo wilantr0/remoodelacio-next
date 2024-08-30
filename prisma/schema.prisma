@@ -20,7 +20,7 @@ enum Role {
 
 // User model
 model User {
-  id            String    @id @default(cuid())
+  id            Int       @id @default(autoincrement())
   name          String?
   email         String    @unique
   password      String
@@ -92,12 +92,12 @@ model Classroom {
 // ClassroomUser model
 model ClassroomUser {
   classroom_id Int
-  user_id      String
+  userId      String
   role         String
   joined_at    DateTime @default(now())
 
-  classroom Classroom @relation(fields: [classroom_id], references: [classroom_id])
-  user      User      @relation(fields: [user_id], references: [id])
+  User User? @relation(fields: [userId], references: [id])
+
 
   @@id([classroom_id, user_id])
 }
@@ -131,7 +131,6 @@ model Submission {
   student    User       @relation("StudentSubmissions", fields: [student_id], references: [id])
   userId     String?
 
-  User User? @relation(fields: [userId], references: [id])
   User User? @relation(fields: [userId], references: [id])
 }
 
