@@ -9,10 +9,13 @@ export default function Classes ({ clases, tareas }) {
       <LoggedLayout title='Clases' />
       <main className='flex-1 bg-background p-6'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          hola
           {
-            clases.map(function clases (e) {
+            clases.map((e) => {
+              console.log(e)
               return (
-                <ClassCard classItem={e} key={e.id} />
+
+                <ClassCard classItem={e} classId={e.classroom_id} key={e.classroom_id} />
               )
             })
           }
@@ -24,13 +27,15 @@ export default function Classes ({ clases, tareas }) {
 }
 
 async function fetchAllClasses () {
-  const res = await fetch('http://localhost:3000/api/classes')
+  const res = await fetch(`${process.env.URL_DEPLOY}/api/classes`)
+  console.log(process.env.URL_DEPLOY)
   const data = await res.json()
   return data
 }
 
 async function fetchAllTasks () {
-  const res = await fetch('http://localhost:3000/api/tasks')
+  const res = await fetch(`${process.env.URL_DEPLOY}/api/tasks`)
+  console.log(res)
   const data = await res.json()
   return data
 }
@@ -38,6 +43,8 @@ async function fetchAllTasks () {
 export async function getServerSideProps () {
   const clases = await fetchAllClasses()
   const tareas = await fetchAllTasks()
+
+  console.log(clases)
 
   return {
     props: {

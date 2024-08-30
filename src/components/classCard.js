@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
 async function fetchUserData (userId) {
-  const res = await fetch(`http://localhost:3000/api/users/${userId}`)
+  const res = await fetch(`${process.env.URL_DEPLOY}/api/users/${userId}`)
   const data = await res.json()
   return data
 }
 
-const ClassCard = ({ classItem }) => {
+const ClassCard = ({ classItem, classId }) => {
   const [teacherData, setTeacherData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -19,6 +19,7 @@ const ClassCard = ({ classItem }) => {
         setLoading(true)
         console.log(classItem.created_by)
         const teacherData = await fetchUserData(classItem.created_by)
+        console.log('hola')
         setTeacherData(teacherData)
         setLoading(false)
       } catch (err) {
@@ -27,18 +28,19 @@ const ClassCard = ({ classItem }) => {
       }
     }
     fetchData()
-  }, [classItem.teacher])
+  }, [classItem.created_by])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error.message}</p>
 
   return (
     <a
-      key={classItem.id}
-      href={`/c/${classItem.id}`}
+      key={classItem.classroom_id}
+      href={`/c/${classId}`}
       class='rounded-lg border bg-card text-black decoration-transparent text-card-foreground shadow-lg'
       data-v0-t='card'
     >
+
       <div class='p-6'>
         <div class='flex items-center justify-between'>
           <h3 class='text-lg font-bold'>{classItem.name}</h3>

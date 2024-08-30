@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/layouts/MainLayout.js"
-  ],
+, "src/components/ui/table.jsx", "src/pages/c/index.js", "src/pages/bloc/index.js", "src/pages/c/[clase]/t/[tarea].js", "src/pages/c/[clase]/index.js", "src/pages/c/loading.js", "src/pages/calendar/index.js", "src/pages/login/index.js", "src/pages/c/index.js"  ],
   "exclude": ["node_modules"]
 }
