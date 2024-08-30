@@ -10,44 +10,48 @@ export default function Register () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('teacher')
 
-  const togglePasswordVisibility = e => {
-    e.preventDefault()
-    setShowPass(!showPass)
+  const togglePasswordVisibility = () => {
+    setShowPass((prevShowPass) => !prevShowPass)
   }
 
-  const handleSignIn = async (event) => {
-    event.preventDefault();
+  const handleSignUp = async (event) => {
+    event.preventDefault()
+    const data = Object.fromEntries(new FormData(event.target))
+    console.log(data)
+
+    console.log(name)
+    console.log(role)
     try {
-      const res = await fetch('/api/auth/register', {  // Asegúrate de que la ruta sea correcta
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name, role }),
-      });
-  
-      const data = await res.json();
+        body: JSON.stringify({ email, password, name, role })
+      })
+
+      const data = await res.json()
       if (res.ok) {
-        console.log('Usuario registrado exitosamente:', data);
+        console.log('Usuario registrado exitosamente:', data)
+        // You can redirect or give feedback to the user here
       } else {
-        console.error('Error al registrar el usuario:', data.error); // Mejor manejo de errores
+        console.error('Error al registrar el usuario:', data.error)
       }
     } catch (error) {
-      console.error('Error de red u otro error:', error);
+      console.error('Error de red u otro error:', error)
     }
-  };
-  
-  
+  }
+
   return (
     <section className='form-container sign-up-container'>
       <style>{estilos}</style>
-      <form action='' className='' onSubmit={handleSignIn}>
+      <form action='' onSubmit={handleSignUp}>
         <h1>Crear cuenta</h1>
         <div className='social-container'>
-          <a className='social-login' href=''>
+          <a className='social-login' href='#'>
             <FaFacebook />
           </a>
-          <a className='social-login' href=''>
+          <a className='social-login' href='#'>
             <FaGoogle />
           </a>
         </div>
@@ -55,14 +59,16 @@ export default function Register () {
         <input
           className='input'
           type='text'
-          placeholder='nombre'
+          placeholder='Nombre'
+          name='name'
           onChange={(e) => setName(e.target.value)}
           required
         />
         <input
           className='input'
           type='email'
-          placeholder='e-mail'
+          name='mail'
+          placeholder='E-mail'
           onChange={(e) => setEmail(e.target.value)}
           required
         />
@@ -70,20 +76,23 @@ export default function Register () {
           <input
             className='input'
             type={showPass ? 'text' : 'password'}
-            placeholder='contraseña'
+            placeholder='Contraseña'
             value={password}
             id='password'
+            name='password'
             onChange={(e) => setPassword(e.target.value)}
             required
             style={{ width: '100%' }}
           />
-          <span className='show-password-checkbox'>
-            <button id='showPassword' onClick={togglePasswordVisibility}>
-              <label htmlFor='showPassword'>
-                {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
-              </label>
-            </button>
-          </span>
+          <button
+            type='button'
+            id='showPassword'
+            onClick={togglePasswordVisibility}
+            aria-label={showPass ? 'Hide password' : 'Show password'}
+            className='show-password-button'
+          >
+            {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
+          </button>
         </div>
         <select onChange={(e) => setRole(e.target.value)} className='input' name='role' id='role'>
           <option value='teacher'>Profesor/a</option>
