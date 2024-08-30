@@ -9,7 +9,7 @@ export default function Custom404 () {
         <h2 className='mt-4 text-3xl font-bold text-gray-900'>Page Not Found</h2>
         <p className='mt-2 text-lg text-gray-600'>Sorry, we couldn’t find the page you’re looking for.</p>
         <a href='/' className='mt-6 inline-block px-5 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700'>
-          Go back home
+          Go back hom
         </a>
       </div>
       <div className='hidden lg:flex w-full lg:w-1/2 justify-center p-6'>
