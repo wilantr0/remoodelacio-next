@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 password: true, // Incluir el campo 'password'
             },
         });
-        const pass = await bcrypt.compare(password, user.password)
+        const pass = await bcrypt.compare(password, user!.password)
         console.log(pass)
         console.log(user)
         console.log(password)
@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const info = jwt.decode(token)
             console.log(info)
             sessionStorage.setItem('token', token)
-            res.status(200).json({ token, redirectTo });
+            res.status(200).json({ token });
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }

@@ -3,12 +3,10 @@ import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { estilos } from './style'
 import { Montserrat } from 'next/font/google'
-import { useRouter } from 'next/router'
 
 export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Login () {
-  const router = useRouter()
   const {
     register,
     formState: { errors }
@@ -29,9 +27,8 @@ export default function Login () {
 
       const data = await res.json()
       if (res.ok) {
-        const { token, redirectTo } = await res.json()
-
-        router.push(redirectTo) //
+        console.log('Usuario registrado exitosamente:', data)
+        // You can redirect or give feedback to the user here
       } else {
         console.error('Error al registrar el usuario:', data.error)
       }
