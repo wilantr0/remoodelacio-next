@@ -3,18 +3,41 @@ import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { estilos } from './style'
 import { Montserrat } from 'next/font/google'
+import { useRouter } from 'next/router'
 
 export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Login () {
+  const router = useRouter()
   const {
     register,
-    handleSubmit,
     formState: { errors }
   } = useForm()
 
-  const onSubmit = data => {
-    console.log(data)
+  const handleLogIn = async (event) => {
+    event.preventDefault()
+    const { mail, password } = Object.fromEntries(new FormData(event.target))
+
+    console.log(mail)
+    console.log(password)
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mail, password })
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        const { token, redirectTo } = await res.json()
+
+        router.push(redirectTo) //
+      } else {
+        console.error('Error al registrar el usuario:', data.error)
+      }
+    } catch (error) {
+      console.error('Error de red u otro error:', error)
+    }
   }
 
   const [showPass, setShowPass] = useState(false)
@@ -34,7 +57,7 @@ export default function Login () {
       <style>{estilos}</style>
       <form
         action=''
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleLogIn}
         className='bg-white flex justify-center items-center flex-col py-0 px-12 h-full text-center'
       >
         <h1>Iniciar sesión</h1>
