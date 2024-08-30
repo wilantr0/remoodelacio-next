@@ -20,21 +20,23 @@ export default function Register () {
   const handleSignIn = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch('/api/auth/register', { // Cambia la ruta a /api/auth/register
+      const res = await fetch('/api/auth/register', {  // Asegúrate de que la ruta sea correcta
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name, role })
+        body: JSON.stringify({ email, password, name, role }),
       });
+  
       const data = await res.json();
       if (res.ok) {
         console.log('Usuario registrado exitosamente:', data);
       } else {
-        console.error('Error al registrar el usuario:', data.error); // Muestra el error devuelto por el backend
+        console.error('Error al registrar el usuario:', data.error); // Mejor manejo de errores
       }
     } catch (error) {
       console.error('Error de red u otro error:', error);
     }
   };
+  
   
   return (
     <section className='form-container sign-up-container'>

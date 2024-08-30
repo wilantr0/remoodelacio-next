@@ -1,12 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+// pages/api/auth/register.js
+import prisma from '@prisma/client'; // Asegúrate de que la importación de Prisma sea correcta
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient();
-
-export default async function handler(req, res) {
+export default async function handle(req, res) {
   if (req.method === 'POST') {
     const { email, password, name, role } = req.body;
-
     try {
       // Verifica si el usuario ya existe
       const existingUser = await prisma.user.findUnique({
@@ -14,12 +12,13 @@ export default async function handler(req, res) {
       });
 
       if (existingUser) {
-        return res.status(400).json({ error: 'El usuario ya existe' });
+        return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
       }
 
-      // Encripta la contraseña
+      // Encriptar la contraseña
       const hashedPassword = await bcrypt.hash(password, 10);
-      // Crea el nuevo usuario
+
+      // Crear nuevo usuario
       const newUser = await prisma.user.create({
         data: {
           email,
@@ -28,12 +27,14 @@ export default async function handler(req, res) {
           role,
         },
       });
-      res.status(201).json({ message: 'Usuario registrado exitosamente', user: newUser });
+
+      return res.status(201).json(newUser);
     } catch (error) {
-      console.error('Error al registrar usuario:', error);  // Revisa qué error se imprime aquí
-      res.status(500).json({ error: 'Error al registrar el usuario' });
+      console.error('Error al registrar usuario:', error);
+      return res.status(500).json({ error: 'Error del servidor al registrar el usuario.' });
     }
   } else {
-    res.status(405).json({ error: 'Método no permitido' });
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
