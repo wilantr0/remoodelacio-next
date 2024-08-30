@@ -23,8 +23,8 @@ export default function NotLoggedPage () {
                   </p>
                 </div>
                 <div className='flex flex-col gap-2 min-[400px]:flex-row'>
-                  <button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar prueba gratuita</button>
-                  <button className='bg-blue-600 text-white border-white hover:bg-white/10'>Ver demostración</button>
+                  <button className='p-2 rounded-md bg-white text-blue-600 hover:bg-gray-100'>Comenzar prueba gratuita</button>
+                  <button className='p-2 rounded-md bg-blue-600 text-white border-white hover:bg-white/10'>Ver demostración</button>
                 </div>
               </div>
 
@@ -118,8 +118,8 @@ export default function NotLoggedPage () {
                 </p>
               </div>
               <div className='space-x-4'>
-                <button className='bg-white text-blue-600 hover:bg-gray-100'>Comenzar ahora</button>
-                <button className='text-white border-white bg-blue-600 hover:bg-white/10'>Contactar ventas</button>
+                <button className='p-2 rounded-md bg-white text-blue-600 hover:bg-gray-100'>Comenzar ahora</button>
+                <button className='p-2 rounded-md text-white border-white bg-blue-600 hover:bg-white/10'>Contactar ventas</button>
               </div>
             </div>
           </div>
