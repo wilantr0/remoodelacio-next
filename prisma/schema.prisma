@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id                Int                 @id @default(autoincrement())
+  id                String              @id @default(cuid())
   name              String?
   email             String              @unique
   password          String
@@ -31,7 +31,7 @@ model User {
 }
 
 model Account {
-  userId            Int
+  userId            String
   type              String
   provider          String
   providerAccountId String
@@ -63,7 +63,7 @@ model Classroom {
   classroom_id  Int                 @id @default(autoincrement())
   name          String
   description   String?
-  created_by_id Int
+  created_by_id String
   created_at    DateTime            @default(now())
   announcements Announcement[]
   assignments   Assignment[]
@@ -76,7 +76,7 @@ model Classroom {
 
 model ClassroomUser {
   classroom_id Int
-  userId       Int
+  userId       String
   role         String
   joined_at    DateTime  @default(now())
   classroom    Classroom @relation(fields: [classroom_id], references: [classroom_id])
@@ -104,7 +104,7 @@ model Assignment {
 model Submission {
   submission_id Int        @id @default(autoincrement())
   assignment_id Int
-  student_id    Int
+  student_id    String
   submitted_at  DateTime   @default(now())
   file_path     String?
   grade         Float?
@@ -118,7 +118,7 @@ model Submission {
 model Announcement {
   announcement_id Int       @id @default(autoincrement())
   classroom_id    Int
-  created_by_id   Int
+  created_by_id   String
   title           String
   content         String
   created_at      DateTime  @default(now())
@@ -131,7 +131,7 @@ model Announcement {
 
 model Comment {
   comment_id      Int           @id @default(autoincrement())
-  userId          Int
+  userId          String
   assignment_id   Int?
   announcement_id Int?
   content         String
@@ -146,7 +146,7 @@ model Comment {
 model ClassroomMaterial {
   material_id    Int       @id @default(autoincrement())
   classroom_id   Int
-  uploaded_by_id Int
+  uploaded_by_id String
   title          String
   description    String?
   file_path      String
@@ -160,7 +160,7 @@ model ClassroomMaterial {
 model Grade {
   grade_id      Int        @id @default(autoincrement())
   assignment_id Int
-  student_id    Int
+  student_id    String
   grade         Float
   graded_at     DateTime   @default(now())
   assignment    Assignment @relation(fields: [assignment_id], references: [assignment_id])
@@ -171,7 +171,7 @@ model Grade {
 
 model Notification {
   notification_id Int      @id @default(autoincrement())
-  userId          Int
+  userId          String
   message         String
   is_read         Boolean  @default(false)
   created_at      DateTime @default(now())
