@@ -34,7 +34,7 @@ export default function Component () {
 
             {hours.map(hour => (
               <div key={hour} className='h-12 text-xs text-right pr-2 my-2 -mt-2'>
-                {hour === 0 ? '0:00' : `${hour}:00`}
+                {hour === 0 ? '00:00' : `${hour}:00`}
               </div>
             ))}
           </div>
