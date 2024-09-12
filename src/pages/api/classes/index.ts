@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const response = await conn.query('SELECT * FROM classrooms');
         res.status(200).json(response.rows);
       } catch (error) {
-        res.status(500).json({ error: 'Error fetching classrooms' });
+        res.status(500).json( error );
       }
       break;
 

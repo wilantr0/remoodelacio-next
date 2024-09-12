@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 async function fetchUserData (userId) {
-  const res = await fetch(`${process.env.URL_DEPLOY}/api/users/${userId}`)
+  const res = await fetch(`https://remoodelacio-next.vercel.app/api/users/${userId}`)
   const data = await res.json()
+  console.log(data)
   return data
 }
 
@@ -17,8 +18,8 @@ const ClassCard = ({ classItem, classId }) => {
     async function fetchData () {
       try {
         setLoading(true)
-        console.log(classItem.created_by)
-        const teacherData = await fetchUserData(classItem.created_by)
+        console.log(classItem.created_by_id)
+        const teacherData = await fetchUserData(classItem.created_by_id)
         console.log('hola')
         setTeacherData(teacherData)
         setLoading(false)
@@ -28,7 +29,7 @@ const ClassCard = ({ classItem, classId }) => {
       }
     }
     fetchData()
-  }, [classItem.created_by])
+  }, [classItem.created_by_id])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error.message}</p>
