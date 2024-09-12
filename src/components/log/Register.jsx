@@ -1,11 +1,14 @@
+'use client'
 import { useState } from 'react'
 import { FaRegEyeSlash, FaRegEye, FaFacebook, FaGoogle } from 'react-icons/fa'
 import { estilos } from './style'
 import { Montserrat } from 'next/font/google'
+import { useRouter } from 'next/router'
 
 export const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Register () {
+  const router = useRouter()
   const [showPass, setShowPass] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -33,6 +36,8 @@ export default function Register () {
       const data = await res.json()
       if (res.ok) {
         console.log('Usuario registrado exitosamente:', data)
+        router.push('/')
+
         // You can redirect or give feedback to the user here
       } else {
         console.error('Error al registrar el usuario:', data.error)

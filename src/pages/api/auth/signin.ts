@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if(req.method !== "POST") return
     const { email, password, name, role } = req.body;
     
     const hashedPassword = await bcrypt.hash(password, 10);

@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import LoggedPage from './Logged'
 import NotLoggedPage from './notLogged'
