@@ -1,38 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
-async function fetchUserData (userId) {
-  const res = await fetch(`https://remoodelacio-next.vercel.app/api/users/${userId}`)
-  const data = await res.json()
-  console.log(data)
-  return data
-}
-
-const ClassCard = ({ classItem, classId }) => {
-  const [teacherData, setTeacherData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  console.log(classItem)
-
+export default function ClassCard ({ classroomId }) {
   useEffect(() => {
-    async function fetchData () {
-      try {
-        setLoading(true)
-        console.log(classItem.created_by_id)
-        const teacherData = await fetchUserData(classItem.created_by_id)
-        console.log('hola')
-        setTeacherData(teacherData)
-        setLoading(false)
-      } catch (err) {
-        setError(err)
-        setLoading(false)
-      }
+    async function fetchData (e) {
+      const classInfo = await fetch(`${process.env.URL_DEPLOY}/api/classes/${e}`)
+      console.log(classInfo)
+      return classInfo
     }
-    fetchData()
-  }, [classItem.created_by_id])
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error.message}</p>
+    console.log(fetchData(classroomId))
+  }, [classroomId])
 
   return (
     <a
@@ -56,5 +33,3 @@ const ClassCard = ({ classItem, classId }) => {
     </a>
   )
 }
-
-export default ClassCard
