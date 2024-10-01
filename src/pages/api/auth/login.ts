@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 id: true,
                 email: true,
                 name: true,
-                password: true,
+                password: true, 
             },
         });
         const pass = await bcrypt.compare(password, user!.password)
