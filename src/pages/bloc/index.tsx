@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card"
@@ -7,6 +7,7 @@ import { Label } from "@components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select"
 import { User, Book, GraduationCap } from 'lucide-react'
 import NavBar from '@components/LoggedNavBar'
+import tokenValidation from 'src/utils/userDecript'
 
 // Tipos
 type Tarea = {
@@ -97,6 +98,28 @@ export default function BlocCalificaciones() {
   const [vistaProfesor, setVistaProfesor] = useState(true)
   const [alumnoSeleccionado, setAlumnoSeleccionado] = useState(alumnos[0].id)
   const [claseSeleccionada, setClaseSeleccionada] = useState(clases[0].id)
+  const [user, setUser] = useState(undefined)
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTB6ZmExM24wMDAxeWF2ZzJpMXcwbmxsIiwiaWF0IjoxNzI2MTUzNTg4LCJleHAiOjE3MjYxNTcxODh9.zrT76H8pkLJYHwOBgiegDq1bGsPUHEOi7x6Yb4Ph0HM"
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await tokenValidation(token);
+        setUser(userData)
+        if(userData.role === 'alumn'){
+          setVistaProfesor(false)
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUser();
+  }, [token])
+  
+  console.log(user)
+  
+
 
   return (
     <div>
@@ -120,11 +143,7 @@ export default function BlocCalificaciones() {
           </Select>
           <CardTitle className="text-2xl">Bloc de Calificaciones</CardTitle>
           <div className="flex items-center space-x-2">
-            <Switch
-              id="vista-switch"
-              checked={vistaProfesor}
-              onCheckedChange={setVistaProfesor}
-              />
+            
             <Label htmlFor="vista-switch" className="text-sm">
               {vistaProfesor ? (
                 <><User className="inline mr-1" size={16} /> Profesor</>
@@ -140,9 +159,9 @@ export default function BlocCalificaciones() {
           <VistaProfesor claseId={claseSeleccionada} />
         ) : (
           <VistaAlumno 
-          alumnoId={alumnoSeleccionado} 
-          claseId={claseSeleccionada}
-          onAlumnoChange={setAlumnoSeleccionado} 
+          user = { user } 
+          claseId = {claseSeleccionada}
+          clases={clases}
           />
         )}
       </CardContent>
@@ -188,26 +207,13 @@ function VistaProfesor({ claseId }: { claseId: number }) {
 }
 
 // Componente para la vista del alumno
-function VistaAlumno({ alumnoId, claseId, onAlumnoChange }: { alumnoId: number, claseId: number, onAlumnoChange: (id: number) => void }) {
-  const alumno = alumnos.find(a => a.id === alumnoId)
-  const clase = clases.find(c => c.id === claseId)
-
-  if (!alumno || !clase) return <div>Datos no encontrados</div>
+function VistaAlumno({ user, claseId, clases }) {
+  const clase = clases[claseId]
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Calificaciones de {alumno.nombre}</h2>
-        <Select value={alumnoId.toString()} onValueChange={(value) => onAlumnoChange(Number(value))}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Seleccionar alumno" />
-          </SelectTrigger>
-          <SelectContent>
-            {alumnos.map((a) => (
-              <SelectItem key={a.id} value={a.id.toString()}>{a.nombre}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <h2 className="text-xl font-semibold">Calificaciones de {user.name}</h2>
       </div>
       <Table>
         <TableHeader>

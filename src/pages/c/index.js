@@ -14,7 +14,6 @@ export default function Classes ({ clases, tareas }) {
             clases.map((e) => {
               console.log(e)
               return (
-
                 <ClassCard classItem={e} classId={e.classroom_id} key={e.classroom_id} />
               )
             })
@@ -30,6 +29,7 @@ async function fetchAllClasses () {
   const res = await fetch(`${process.env.URL_DEPLOY}/api/classes`)
   console.log(process.env.URL_DEPLOY)
   const data = await res.json()
+  console.log(data)
   return data
 }
 

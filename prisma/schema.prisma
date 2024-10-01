@@ -12,7 +12,7 @@ model User {
   name              String?
   email             String              @unique
   password          String
-  role              Role                @default(user)
+  role              Role                @default(alumn)
   image             String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @default(now()) @updatedAt
@@ -180,7 +180,7 @@ model Notification {
 }
 
 enum Role {
-  user
+  alumn
   teacher
   super
 }
