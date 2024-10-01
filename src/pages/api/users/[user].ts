@@ -1,30 +1,40 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { conn } from 'src/utils/database';
 
-export default async function Queries (req: NextApiRequest, res: NextApiResponse) {
+export default async function Queries(req: NextApiRequest, res: NextApiResponse) {
+  const { method, query } = req;
 
-  const {method, query} = req;
-  console.log(query)
   switch (method) {
     case "GET":
       try {
         const queryText = {
-          text: 'SELECT * FROM users WHERE user_id = $1',
-          values: [query.user]
+          text: 'SELECT * FROM users WHERE id = $1',
+          values: [query.user],
+        };
+        
+        // Realizar la consulta
+        const response = await conn.query(queryText);
+        console.log(response)
+
+        // Verificar si se encontró algún usuario
+        if (response.rows.length === 0) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
         }
-        const response = await conn.query(queryText)
-        res.status(200).json(response.rows[0]);
-        return response.rows
+
+        // Enviar la respuesta
+        return res.status(200).json(response.rows[0]);
       } catch (error) {
-        res.json(error);
+        // Manejar el error y enviar la respuesta
+        console.error(error);
+        return res.status(500).json({ error: "Error en el servidor" });
       }
-      res.json(query)
-      break;
+
     case "POST":
-      
+      // Lógica para el caso POST (aquí aún no haces nada)
       break;
+
     default:
-      res.json("ERROR");
-      break;
+      // Respuesta por defecto para métodos no permitidos
+      return res.status(405).json({ message: "Método no permitido" });
   }
-};
+}

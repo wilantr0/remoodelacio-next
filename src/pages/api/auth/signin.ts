@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient();
 
@@ -24,6 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         });
         console.log(user)
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log(token)
         res.status(201).json({ user });
     } catch (error) {
         console.log({error})

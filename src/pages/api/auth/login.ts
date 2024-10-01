@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { serialize } from 'cookie';
 
 
 const prisma = new PrismaClient();
@@ -25,8 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log(user)
         console.log(password)
         if (user && await bcrypt.compare(password, user.password)) {
-            const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             console.log(token)
+            res.setHeader("Set-Cookie", token)
             const info = jwt.decode(token)
             console.log(info)
             res.status(200).json({ token });
